@@ -1,0 +1,106 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+}
+
+.addBtn {
+  background: var(--accent);
+  color: #fff;
+}
+
+.addBtn:hover {
+  background: var(--accent-hover);
+}
+
+.filters {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.filters select {
+  min-width: 140px;
+}
+
+.loading,
+.error {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.error {
+  color: var(--danger);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.checkLabel {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0.5rem !important;
+}
+
+.formActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.saveBtn {
+  background: var(--accent);
+  color: #fff;
+}
+
+.saveBtn:hover {
+  background: var(--accent-hover);
+}
+
+.cancelBtn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+}
+
+.cancelBtn:hover {
+  background: var(--bg-input);
+}
+
+.confirmText {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.dangerBtn {
+  background: var(--danger);
+  color: #fff;
+}
+
+.dangerBtn:hover {
+  background: var(--danger-hover);
+}

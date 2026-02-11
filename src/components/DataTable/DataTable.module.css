@@ -1,0 +1,70 @@
+.wrapper {
+  background: var(--bg-card);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: var(--bg-secondary);
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editBtn {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.8rem;
+}
+
+.editBtn:hover {
+  background: var(--accent-hover);
+}
+
+.deleteBtn {
+  background: var(--danger);
+  color: #fff;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.8rem;
+}
+
+.deleteBtn:hover {
+  background: var(--danger-hover);
+}
+
+.empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+}

@@ -1,0 +1,27 @@
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+/* Asset status */
+.operational { background: var(--status-operational); color: #fff; }
+.down { background: var(--status-down); color: #fff; }
+.maintenance { background: var(--status-maintenance); color: #fff; }
+.retired { background: var(--status-retired); color: #fff; }
+
+/* Work order status */
+.open { background: var(--wo-open); color: #fff; }
+.in_progress { background: var(--wo-in-progress); color: #fff; }
+.completed { background: var(--wo-completed); color: #fff; }
+.closed { background: var(--wo-closed); color: #fff; }
+
+/* Priority */
+.low { background: var(--priority-low); color: #fff; }
+.medium { background: var(--priority-medium); color: #fff; }
+.high { background: var(--priority-high); color: #fff; }
+.urgent { background: var(--priority-urgent); color: #fff; }
