@@ -89,6 +89,21 @@
   background: var(--danger-hover);
 }
 
+.nameLink {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+}
+
+.nameLink:hover {
+  text-decoration: underline;
+  color: var(--accent-hover);
+}
+
 .headerActions {
   display: flex;
   gap: 0.75rem;

@@ -7,15 +7,6 @@ import StatusBadge from '../../components/StatusBadge/StatusBadge';
 import AssetForm from './AssetForm';
 import styles from './Assets.module.css';
 
-const columns = [
-  { key: 'name', label: 'Name' },
-  { key: 'asset_type', label: 'Type' },
-  { key: 'location', label: 'Location' },
-  { key: 'serial_number', label: 'Serial #' },
-  { key: 'manufacturer', label: 'Manufacturer' },
-  { key: 'status', label: 'Status', render: (v) => <StatusBadge value={v} /> },
-];
-
 export default function Assets() {
   const { data, loading, error, refetch } = useApi('/assets/');
   const [modal, setModal] = useState(null); // 'create' | 'edit' | 'delete' | 'import'
@@ -38,6 +29,17 @@ export default function Assets() {
     setSelected(row);
     setModal('delete');
   }
+
+  const columns = [
+    { key: 'name', label: 'Name', render: (v, row) => (
+      <button className={styles.nameLink} onClick={() => openEdit(row)}>{v}</button>
+    )},
+    { key: 'asset_type', label: 'Type' },
+    { key: 'location', label: 'Location' },
+    { key: 'serial_number', label: 'Serial #' },
+    { key: 'manufacturer', label: 'Manufacturer' },
+    { key: 'status', label: 'Status', render: (v) => <StatusBadge value={v} /> },
+  ];
 
   function close() {
     setModal(null);
