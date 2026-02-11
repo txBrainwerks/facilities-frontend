@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useApi } from '../../hooks/useApi';
 import StatusBadge from '../../components/StatusBadge/StatusBadge';
 import styles from './Dashboard.module.css';
@@ -34,22 +35,22 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
 
       <div className={styles.cards}>
-        <div className={styles.card}>
+        <Link to="/assets" className={styles.card}>
           <h3>Total Assets</h3>
           <div className={styles.value}>{assetList.length}</div>
-        </div>
-        <div className={styles.card}>
+        </Link>
+        <Link to="/work-orders" className={styles.card}>
           <h3>Open Work Orders</h3>
           <div className={styles.value}>{openWOs.length}</div>
-        </div>
-        <div className={styles.card}>
+        </Link>
+        <Link to="/technicians" className={styles.card}>
           <h3>Active Technicians</h3>
           <div className={styles.value}>{activeTechs.length}</div>
-        </div>
-        <div className={styles.card}>
+        </Link>
+        <Link to="/schedules" className={styles.card}>
           <h3>Active Schedules</h3>
           <div className={styles.value}>{activeScheds.length}</div>
-        </div>
+        </Link>
       </div>
 
       <div className={styles.sections}>
