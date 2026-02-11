@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useApi } from '../../hooks/useApi';
-import { post, put, del } from '../../services/api';
+import { post, put, del, uploadFile } from '../../services/api';
 import DataTable from '../../components/DataTable/DataTable';
 import Modal from '../../components/Modal/Modal';
 import StatusBadge from '../../components/StatusBadge/StatusBadge';
@@ -18,8 +18,11 @@ const columns = [
 
 export default function Assets() {
   const { data, loading, error, refetch } = useApi('/assets/');
-  const [modal, setModal] = useState(null); // 'create' | 'edit' | 'delete'
+  const [modal, setModal] = useState(null); // 'create' | 'edit' | 'delete' | 'import'
   const [selected, setSelected] = useState(null);
+  const [importResult, setImportResult] = useState(null);
+  const [importing, setImporting] = useState(false);
+  const fileInputRef = useRef(null);
 
   function openCreate() {
     setSelected(null);
@@ -57,6 +60,43 @@ export default function Assets() {
     refetch();
   }
 
+  function openImport() {
+    setImportResult(null);
+    setModal('import');
+  }
+
+  function closeImport() {
+    setModal(null);
+    setImportResult(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+    refetch();
+  }
+
+  function downloadTemplate() {
+    const headers = 'name,asset_type,location,serial_number,manufacturer,model,install_date,warranty_expiry,status,notes';
+    const blob = new Blob([headers + '\n'], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'assets_template.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function handleImport() {
+    const file = fileInputRef.current?.files[0];
+    if (!file) return;
+    setImporting(true);
+    try {
+      const result = await uploadFile('/assets/import', file);
+      setImportResult(result);
+    } catch (e) {
+      setImportResult({ imported: 0, errors: [{ row: '-', message: e.message }] });
+    } finally {
+      setImporting(false);
+    }
+  }
+
   if (loading) return <div className={styles.loading}>Loading assets...</div>;
   if (error) return <div className={styles.error}>Error: {error}</div>;
 
@@ -64,9 +104,14 @@ export default function Assets() {
     <div>
       <div className={styles.header}>
         <h1>Assets</h1>
-        <button className={styles.addBtn} onClick={openCreate}>
-          + Add Asset
-        </button>
+        <div className={styles.headerActions}>
+          <button className={styles.importBtn} onClick={openImport}>
+            Import CSV
+          </button>
+          <button className={styles.addBtn} onClick={openCreate}>
+            + Add Asset
+          </button>
+        </div>
       </div>
 
       <DataTable columns={columns} data={data} onEdit={openEdit} onDelete={openDelete} />
@@ -93,6 +138,61 @@ export default function Assets() {
             <button className={styles.dangerBtn} onClick={handleDelete}>
               Delete
             </button>
+          </div>
+        </Modal>
+      )}
+
+      {modal === 'import' && (
+        <Modal title="Import Assets from CSV" onClose={closeImport}>
+          <div className={styles.importBody}>
+            <button className={styles.templateBtn} onClick={downloadTemplate}>
+              Download CSV Template
+            </button>
+            <label className={styles.fileLabel}>
+              Select CSV file
+              <input
+                type="file"
+                accept=".csv"
+                ref={fileInputRef}
+                className={styles.fileInput}
+              />
+            </label>
+            {!importResult && (
+              <div className={styles.formActions}>
+                <button className={styles.cancelBtn} onClick={closeImport}>
+                  Cancel
+                </button>
+                <button
+                  className={styles.saveBtn}
+                  onClick={handleImport}
+                  disabled={importing}
+                >
+                  {importing ? 'Importing...' : 'Upload'}
+                </button>
+              </div>
+            )}
+            {importResult && (
+              <div className={styles.importResult}>
+                <p className={styles.importSuccess}>
+                  {importResult.imported} asset{importResult.imported !== 1 ? 's' : ''} imported.
+                </p>
+                {importResult.errors.length > 0 && (
+                  <div className={styles.importErrors}>
+                    <p>Errors:</p>
+                    <ul>
+                      {importResult.errors.map((err, i) => (
+                        <li key={i}>Row {err.row}: {err.message}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                <div className={styles.formActions}>
+                  <button className={styles.saveBtn} onClick={closeImport}>
+                    Done
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </Modal>
       )}

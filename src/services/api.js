@@ -28,3 +28,14 @@ export function put(path, data) {
 export function del(path) {
   return request(path, { method: 'DELETE' });
 }
+
+export async function uploadFile(path, file) {
+  const form = new FormData();
+  form.append('file', file);
+  const res = await fetch(`${BASE}${path}`, { method: 'POST', body: form });
+  if (!res.ok) {
+    const body = await res.json().catch(() => null);
+    throw new Error(body?.detail || `Request failed: ${res.status}`);
+  }
+  return res.json();
+}

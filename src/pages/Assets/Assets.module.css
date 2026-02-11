@@ -88,3 +88,77 @@
 .dangerBtn:hover {
   background: var(--danger-hover);
 }
+
+.headerActions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.importBtn {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.importBtn:hover {
+  background: var(--bg-input);
+}
+
+.importBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.templateBtn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.85rem;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.templateBtn:hover {
+  color: var(--accent-hover);
+}
+
+.fileLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.fileInput {
+  font-size: 0.85rem;
+}
+
+.importResult {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.importSuccess {
+  color: var(--success, #22c55e);
+  font-weight: 500;
+}
+
+.importErrors {
+  font-size: 0.85rem;
+  color: var(--danger);
+}
+
+.importErrors ul {
+  margin: 0.25rem 0 0 1.25rem;
+  padding: 0;
+}
+
+.importErrors li {
+  margin-bottom: 0.25rem;
+}
